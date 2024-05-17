@@ -15,7 +15,7 @@ import {
   mediaDevices,
 } from 'react-native-webrtc';
 
-const signalingServerUrl = 'ws://localhost:8080'; // シグナリングサーバーのURL
+const signalingServerUrl = 'ws://p2p2p-fe97d4f7eca7.herokuapp.com:8080'; // シグナリングサーバーのURL
 
 const App = () => {
   const ws = useRef(new WebSocket(signalingServerUrl));
