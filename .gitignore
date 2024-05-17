@@ -165,3 +165,4 @@ vendor/
 .circleci/generated_config.yml
 
 ios/Pods/
+android/app/build/

@@ -17,7 +17,6 @@ import {
 
 const signalingServerUrl =
   Platform.OS === 'ios' ? 'ws://localhost:8080' : 'ws://10.0.2.2:8080';
-
 const ws = new WebSocket(signalingServerUrl);
 
 const App = () => {
@@ -28,7 +27,13 @@ const App = () => {
   const [targetId, setTargetId] = useState('');
   const [connectionStatus, setConnectionStatus] = useState('Disconnected');
   const dataChannel = useRef(null);
-  const pc = useRef(null);
+  const pc = useRef(
+    new RTCPeerConnection({
+      iceServers: [
+        {urls: 'stun:stun.l.google.com:19302'}, // STUNサーバー
+      ],
+    }),
+  );
 
   useEffect(() => {
     ws.onmessage = event => {
@@ -48,18 +53,6 @@ const App = () => {
       }
     };
 
-    return () => {
-      endCall();
-    };
-  }, []);
-
-  const setupPeerConnection = () => {
-    pc.current = new RTCPeerConnection({
-      iceServers: [
-        {urls: 'stun:stun.l.google.com:19302'}, // STUNサーバー
-      ],
-    });
-
     pc.current.onicecandidate = event => {
       if (event.candidate) {
         sendMessage({
@@ -78,7 +71,11 @@ const App = () => {
     pc.current.onconnectionstatechange = () => {
       setConnectionStatus(pc.current.connectionState);
     };
-  };
+
+    return () => {
+      endCall();
+    };
+  }, [targetId]);
 
   const setupDataChannel = () => {
     dataChannel.current.onmessage = event => {
@@ -98,10 +95,6 @@ const App = () => {
   };
 
   const createOffer = async () => {
-    setupPeerConnection();
-    dataChannel.current = pc.current.createDataChannel('chat');
-    setupDataChannel();
-
     const offer = await pc.current.createOffer();
     await pc.current.setLocalDescription(offer);
     sendMessage({type: 'offer', offer, target: targetId});
@@ -110,7 +103,6 @@ const App = () => {
   };
 
   const handleOffer = async (offer, id) => {
-    setupPeerConnection();
     setTargetId(id); // offerを受け取った時にターゲットIDを設定
     await pc.current.setRemoteDescription(new RTCSessionDescription(offer));
     const answer = await pc.current.createAnswer();
