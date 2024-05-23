@@ -16,7 +16,7 @@ import {
 } from 'react-native-webrtc';
 
 const signalingServerUrl =
-  Platform.OS === 'ios' ? 'ws://localhost:8080' : 'ws://10.0.2.2:8080';
+  Platform.OS === 'ios' ? 'ws://127.0.0.1:8080' : 'ws://10.0.2.2:8080';
 
 const ws = new WebSocket(signalingServerUrl);
 
@@ -53,13 +53,19 @@ const App = () => {
     };
   }, []);
 
+  // ICE接続状態の変更を監視
   pc.oniceconnectionstatechange = () => {
     console.log(`ICE connection state: ${pc.iceConnectionState}`);
   };
 
-  pc.onicecandidate = (event) => {
+  // シグナリング状態の変更を監視
+  pc.onsignalingstatechange = () => {
+    console.log(`Signaling state: ${pc.signalingState}`);
+  };
+
+  pc.onicecandidate = event => {
     if (event.candidate) {
-      sendMessage({ type: 'candidate', candidate: event.candidate });
+      sendMessage({type: 'candidate', candidate: event.candidate});
     }
   };
 
@@ -86,6 +92,8 @@ const App = () => {
     };
 
     pc.current.onconnectionstatechange = () => {
+      console.log('onconnectionstatechange');
+      console.log(pc.current);
       setConnectionStatus(pc.current.connectionState);
     };
   };
@@ -120,6 +128,9 @@ const App = () => {
   };
 
   const handleOffer = async (offer, id) => {
+    console.log('handleOffer');
+    console.log(offer);
+    console.log(id);
     setupPeerConnection();
     setTargetId(id); // offerを受け取った時にターゲットIDを設定
     await pc.current.setRemoteDescription(new RTCSessionDescription(offer));
