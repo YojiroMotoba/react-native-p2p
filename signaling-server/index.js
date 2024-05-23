@@ -7,7 +7,6 @@ const clients = {};
 wss.on('connection', ws => {
   ws.on('message', message => {
     const data = JSON.parse(message);
-    console.log(data.type + '+++++');
     console.log(data);
     if (data.type === 'register') {
       clients[data.id] = ws;
@@ -25,7 +24,7 @@ wss.on('connection', ws => {
   });
 
   ws.on('close', () => {
-    console.log('close-----');
+    console.log('close');
     console.log(ws);
     delete clients[ws.id];
   });

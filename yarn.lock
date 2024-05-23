@@ -5665,11 +5665,6 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
-"react-native-permissions@^4.1.5":
-  "integrity" "sha512-r6VMRacASmtRHS+GZ+5HQCp9p9kiE+UU9magHOZCXZLTJitdTuVHWZRrb4v4oqZGU+zAp3mZhTQftuMMv+WLUg=="
-  "resolved" "https://registry.npmjs.org/react-native-permissions/-/react-native-permissions-4.1.5.tgz"
-  "version" "4.1.5"
-
 "react-native-webrtc@^118.0.7":
   "integrity" "sha512-odgd4CNSGQmI8n/pEbxlUtJBTJ8uqE51B1/NUEAvO1AQbeXsyFNHEG0H2T27eMefo5u0GKcRpNkZpXi6fctTkQ=="
   "resolved" "https://registry.npmjs.org/react-native-webrtc/-/react-native-webrtc-118.0.7.tgz"
@@ -5679,7 +5674,7 @@
     "debug" "4.3.4"
     "event-target-shim" "6.0.2"
 
-"react-native@*", "react-native@>=0.60.0", "react-native@>=0.70.0", "react-native@0.74.1":
+"react-native@*", "react-native@>=0.60.0", "react-native@0.74.1":
   "integrity" "sha512-0H2XpmghwOtfPpM2LKqHIN7gxy+7G/r1hwJHKLV6uoyXGC/gCojRtoo5NqyKrWpFC8cqyT6wTYCLuG7CxEKilg=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.74.1.tgz"
   "version" "0.74.1"
@@ -5744,7 +5739,7 @@
     "react-shallow-renderer" "^16.15.0"
     "scheduler" "^0.23.0"
 
-"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>=18.1.0", "react@18.2.0":
+"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"

@@ -53,6 +53,16 @@ const App = () => {
     };
   }, []);
 
+  pc.oniceconnectionstatechange = () => {
+    console.log(`ICE connection state: ${pc.iceConnectionState}`);
+  };
+
+  pc.onicecandidate = (event) => {
+    if (event.candidate) {
+      sendMessage({ type: 'candidate', candidate: event.candidate });
+    }
+  };
+
   const setupPeerConnection = () => {
     pc.current = new RTCPeerConnection({
       iceServers: [
